@@ -54,7 +54,7 @@ SRC += ../dlib/dlib/misc_api/misc_api_kernel_1.cpp
 SRC += ../dlib/dlib/misc_api/misc_api_kernel_2.cpp
 
 CFLAGS +=  -fpic  -Wall -W  -O2 -Iinclude -I../dlib 
-LDFLAGS = -shared -L/$(NACL_SDK_ROOT)/lib/pnacl/Release
+LDFLAGS = -L/$(NACL_SDK_ROOT)/lib/pnacl/Release -lppapi -lpthread 
 
 HEADERS=include/mitie.h
 
@@ -68,7 +68,7 @@ all: libmitie.so libmitie.a
 
 libmitie.so: $(OBJ) 
 	@echo Linking $@
-	@$(CC) $(OBJ) $(BLAS) -o $@
+	@$(CC) $(OBJ) $(BLAS) -o $@ $(LDFLAGS)
 
 libmitie.a: libmitie.so
 	@echo Making $@
@@ -77,7 +77,7 @@ libmitie.a: libmitie.so
 
 .cpp.o: $<
 	@echo Compiling $<
-	@$(CPP) -c $(CFLAGS) $< -o $@
+	@$(CXX) -c $(CFLAGS) $< -o $@
 
 .c.o: $<
 	@echo Compiling $<

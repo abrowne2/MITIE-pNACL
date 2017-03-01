@@ -155,13 +155,13 @@ namespace mitie
             svm_c_linear_dcd_trainer<sparse_linear_kernel<sparse_vector_type> > trainer;
             trainer.set_c_class1(params(0));
             trainer.set_c_class2(params(1));
-            cout << "testing with params: " << trans(params);
+            // cout << "testing with params: " << trans(params);
             matrix<double> res = cross_validate_trainer_threaded(trainer, samples, labels, cv_folds, num_threads);
-            cout << "cv: "<< res;
+            // cout << "cv: "<< res;
 
             const double fscore = (1+beta*beta) * res(0)*res(1) / (beta*beta*res(1) + res(0));
 
-            cout << "fscore: "<< fscore << endl << endl;
+            // cout << "fscore: "<< fscore << endl << endl;
             return fscore;
         }
 
@@ -226,14 +226,14 @@ namespace mitie
         svm_c_linear_dcd_trainer<sparse_linear_kernel<sparse_vector_type> > trainer;
         trainer.set_c_class1(params(0));
         trainer.set_c_class2(params(1));
-        cout << "using parameters of: " << trans(params);
-        cout << "now doing training..." << endl;
+        // cout << "using parameters of: " << trans(params);
+        // cout << "now doing training..." << endl;
         binary_relation_detector bd;
         bd.df = trainer.train(samples, labels);
         bd.relation_type = relation_name;
         bd.total_word_feature_extractor_fingerprint = tfe.get_fingerprint();
 
-        cout << "test on train: " << test_binary_decision_function(bd.df, samples, labels) << endl;
+        // cout << "test on train: " << test_binary_decision_function(bd.df, samples, labels) << endl;
         return bd;
     }
 
